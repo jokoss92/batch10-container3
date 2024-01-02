@@ -1,0 +1,26 @@
+version: '3.8'
+services: 
+  go-app: #docker run --name go-app -p 8000:8000 -d go-app
+    build: ./go-app
+    depends_on:
+      - database
+    networks:
+      - net-app
+    ports: 
+      - 8000:8000
+    environment:
+      - DB_CONNECTION_STRING=userdb:passwordDB#123@tcp(database:3306)/db_app?charset=utf8mb4&parseTime=True&loc=Local
+  database:
+    image: mariadb:latest
+    networks:
+      - net-app
+    volumes:
+      - database-data:/var/lib/mysql
+    env_file:
+      - app.env
+networks:
+  net-app: #docker network create net-app
+
+volumes:
+  database-data: #docker volume create database-data
+

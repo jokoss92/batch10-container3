@@ -1,0 +1,12 @@
+version: '3.8'
+services: 
+  nginx: #docker run --name nginx -p 8080:80 -d nginx:latest
+    container_name: nginx
+    image: nginx:latest
+    ports: 
+      - 8080-8090:80
+  apache: #docker run --name apache -p 9080:80 -d httpd:alpine
+    container_name: apache
+    image: httpd:alpine
+    ports:
+      - 9080:80
